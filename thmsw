@@ -21,7 +21,6 @@ def handle_hyprland_config(theme):
     #with open("./test/hyprland.conf", "w") as f:
         f.writelines(lines) 
     return
-
 def handle_gtk_theme(theme):
     # run gsettings set org.gnome.desktop.interface gtk-theme theme["gtk"]
     subprocess.run(["gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", theme["gtk"]])
@@ -132,10 +131,10 @@ def main():
             print("thmsw - Catppuccin ThemeSwitcher for Hyprland GNU/Linux")
             print("Usage: themeswitcher [OPTION]")
             print("Options:")
-            print("  --gen    Generate themes.json")
-            print("  --img=   Set wallpaper to image (provide absolute path)")
-            print("  -r\n--random Set wallpaper to random image from the X folder")
-            print("  -h\n--help   Display this help message")
+            print("\t--gen    Generate themes.json")
+            print("\t--img=   Set wallpaper to image (provide absolute path)")
+            print("\t-r\n\t--random Set wallpaper to random image from the X folder")
+            print("\t-h\n\t--help   Display this help message")
             sys.exit(0)
         elif sys.argv[1].startswith("--img="):
             img['path'] = sys.argv[1].split("=")[1]
