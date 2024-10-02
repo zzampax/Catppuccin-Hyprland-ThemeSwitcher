@@ -1,0 +1,38 @@
+{
+    "lavenderMauve": {
+        "hyprland": ["rgba(89b4faee)", "rgba(cba6f7ee)"],
+        "gtk": "catppuccin-mocha-lavender-standard+default",
+        "waybar": ["@lavender", "@mauve"],
+        "fish": "\\033[38;2;180;190;254m",
+        "tofi": "#b4befe",
+        "code": "mauve",
+        "wallpaper": "B"
+    },
+    "greenTeal": {
+        "hyprland": ["rgba(a6e3a1ee)", "rgba(94e2d5ee)"],
+        "gtk": "catppuccin-mocha-green-standard+default",
+        "waybar": ["@green", "@teal"],
+        "fish": "\\033[38;2;166;227;161m",
+        "tofi": "#a6e3a1",
+        "code": "green",
+        "wallpaper": "G"
+    },
+    "peachYellow": {
+        "hyprland": ["rgba(fab387ee)", "rgba(f9e2afee)"],
+        "gtk": "catppuccin-mocha-peach-standard+default",
+        "waybar": ["@peach", "@yellow"],
+        "fish": "\\033[38;2;250;179;135m",
+        "tofi": "#fab387",
+        "code": "yellow",
+        "wallpaper": "R"
+    },
+    "redMaroon": {
+        "hyprland": ["rgba(f38ba8ee)", "rgba(eba0acee)"],
+        "gtk": "catppuccin-mocha-red-standard+default",
+        "waybar": ["@red", "@maroon"],
+        "fish": "\\033[38;2;235;160;172m",
+        "tofi": "#f38ba8",
+        "code": "maroon",
+        "wallpaper": "R"
+    }
+}
