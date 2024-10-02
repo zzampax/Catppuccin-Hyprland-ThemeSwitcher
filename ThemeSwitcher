@@ -115,7 +115,7 @@ def handle_wallpaper(theme, img):
         sys.exit(1)
 
     # Set wallpaper
-    subprocess.run(["swww", "img", img['path']], shell=False, check=True) # WARNING: KEEP shell=False
+    subprocess.run(["swww", "img", img['path'], "--transition-type", "wipe"], shell=False, check=True) # WARNING: KEEP shell=False
     #print(f"swww img {img['path']}")
     return
 
