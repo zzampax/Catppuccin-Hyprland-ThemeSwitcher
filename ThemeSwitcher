@@ -97,6 +97,7 @@ def handle_wallpaper(theme, img):
     elif img['path'] == '':
         if os.listdir(f"{os.getenv('HOME')}/Pictures/{theme['wallpaper']}") != []:
             img['path'] = random.choice(os.listdir(f"{os.getenv('HOME')}/Pictures/{theme['wallpaper']}"))
+            img['path'] = f"{os.getenv('HOME')}/Pictures/{theme['wallpaper']}/{img['path']}"
 
     # Check for unsafe input (../) or RCE
     if not os.path.isabs(img['path']):
@@ -114,8 +115,8 @@ def handle_wallpaper(theme, img):
         sys.exit(1)
 
     # Set wallpaper
-    #subprocess.run(["swww", "img", img['path']], shell=False, check=True) # WARNING: KEEP shell=False
-    print(f"swww img {img['path']}")
+    subprocess.run(["swww", "img", img['path']], shell=False, check=True) # WARNING: KEEP shell=False
+    #print(f"swww img {img['path']}")
     return
 
 def main():
@@ -143,9 +144,10 @@ def main():
         sys.exit(0)
 
     # Load themes
-    with open(f"{os.getenv('HOME')}/.local/share/themeswitcher/themes.json", "r") as f:
-        themes = json.load(f)
-    if themes is None:
+    try:
+        with open(f"{os.getenv('HOME')}/.local/share/themeswitcher/themes.json", "r") as f:
+            themes = json.load(f)
+    except FileNotFoundError:
         print("No themes found in ~/.local/share/themeswitcher/themes.json, run themeswitcher --gen to generate themes.json")
         sys.exit(1)
 
