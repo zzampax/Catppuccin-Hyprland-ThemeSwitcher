@@ -25,6 +25,8 @@ def handle_hyprland_config(theme):
 def handle_gtk_theme(theme):
     # run gsettings set org.gnome.desktop.interface gtk-theme theme["gtk"]
     subprocess.run(["gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", theme["gtk"]])
+    # reset cursor
+    subprocess.run(["gsettings", "set", "org.gnome.desktop.interface", "cursor-theme", "'Adwaita'"])
     return
 
 def handle_waybar_config(theme, old_theme):
