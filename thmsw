@@ -125,6 +125,8 @@ def main():
     if len(sys.argv) == 2:
         if sys.argv[1] == "--gen":
             print("Generating themes.json")
+            if not os.path.exists(f"{os.getenv('HOME')}/.local/share/themeswitcher"):
+                os.makedirs(f"{os.getenv('HOME')}/.local/share/themeswitcher")
             subprocess.run(["curl", "https://raw.githubusercontent.com/zzampax/Catppuccin-Hyprland-ThemeSwitcher/main/themes.json", "-o", f"{os.getenv('HOME')}/.local/share/themeswitcher/themes.json"])
             print("Done [in ~/.local/share/themeswitcher/themes.json]")
         elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
