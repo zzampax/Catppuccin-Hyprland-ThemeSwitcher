@@ -21,7 +21,7 @@
         "hyprland": ["rgba(fab387ee)", "rgba(f9e2afee)"],
         "gtk": "catppuccin-mocha-peach-standard+default",
         "waybar": ["@peach", "@yellow"],
-        "fish": "\\033[38;2;250;179;135m",
+        "fish": "\\033[38;2;249;226;175m",
         "tofi": "#fab387",
         "code": "yellow",
         "wallpaper": "R"
