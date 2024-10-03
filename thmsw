@@ -76,12 +76,23 @@ def handle_tofi_config(theme):
 def handle_vscode_config(theme):
     # edit .config/Code/User/settings.json
     # Replace "catppuccin.accentColor": "x" with "catppuccin.accentColor": "theme["vscode"]"
-    with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "r") as f:
-        jsonDump = json.loads(f.read())
-    jsonDump["catppuccin.accentColor"] = theme["code"]
-    with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "w") as f:
-    #with open("./test/vscode.json", "w") as f:
-        f.write(json.dumps(jsonDump, indent=4))
+    try:
+        with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "r") as f:
+            jsonDump = json.loads(f.read())
+        jsonDump["catppuccin.accentColor"] = theme["code"]
+        with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "w") as f:
+        #with open("./test/vscode.json", "w") as f:
+            f.write(json.dumps(jsonDump, indent=4))
+    except json.decoder.JSONDecodeError:
+        # Probably has a comma at the end of the file
+        with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "r") as f:
+            lines = f.readlines()
+        for i in range(len(lines)):
+            if "catppuccin.accentColor" in lines[i]:
+                lines[i] = f"\t\"catppuccin.accentColor\": \"{theme['code']}\"\n"
+        with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "w") as f:
+        #with open("./test/vscode.json", "w") as f:
+            f.writelines(lines)
     return
 
 def handle_wallpaper(theme, img):
