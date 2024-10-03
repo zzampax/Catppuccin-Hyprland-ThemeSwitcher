@@ -8,9 +8,12 @@ import random
 def handle_hyprland_config(theme):
     # Find col.active_border = rgba(xxxee) rgba(xxxee) 45deg
     # Replace with col.active_border = rgba(theme["hyprland"][0]) rgba(theme["hyprland"][1]) 45deg
-
-    with open(f"{os.getenv('HOME')}/.config/hypr/hyprland.conf", "r") as f:
-        lines = f.readlines()
+    try:
+        with open(f"{os.getenv('HOME')}/.config/hypr/hyprland.conf", "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print("hypr not found, skipping")
+        return
 
     for i in range(len(lines)):
         if "col.active_border" in lines[i]:
@@ -31,13 +34,20 @@ def handle_gtk_theme(theme):
 def handle_waybar_config(theme, old_theme):
     # edit .config/waybar/style.css
     # Replace every occurence of current_theme with theme
-    with open(f"{os.getenv('HOME')}/.config/waybar/style.css", "r") as f:
-        lines = f.readlines()
+
+    try:
+        with open(f"{os.getenv('HOME')}/.config/waybar/style.css", "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print("waybar not found, skipping")
+        return
+    
     for i in range(len(lines)):
         if old_theme['waybar'][0] in lines[i]:
             lines[i] = lines[i].replace(old_theme['waybar'][0], theme['waybar'][0])
         elif old_theme['waybar'][1] in lines[i]:
             lines[i] = lines[i].replace(old_theme['waybar'][1], theme['waybar'][1])
+
     with open(f"{os.getenv('HOME')}/.config/waybar/style.css", "w") as f:
     #with open("./test/waybar.css", "w") as f:
         f.writelines(lines)
@@ -50,11 +60,17 @@ def handle_waybar_config(theme, old_theme):
 def handle_fish_shell(theme):
     # edit .config/fish/config.fish
     # \techo -n (printf '\033[38;2;x;x;xm') replace with \techo -n (printf 'theme["fish"]')
-    with open(f"{os.getenv('HOME')}/.config/fish/config.fish", "r") as f:
-        lines = f.readlines()
+    try:
+        with open(f"{os.getenv('HOME')}/.config/fish/config.fish", "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print("fish not found, skipping")
+        return
+
     for i in range(len(lines)):
         if "echo -n (printf '\\033[38;2;" in lines[i]:
             lines[i] = f"\techo -n (printf '{theme['fish']}')\n"
+            
     with open(f"{os.getenv('HOME')}/.config/fish/config.fish", "w") as f:
     #with open("./test/fish.fish", "w") as f:
         f.writelines(lines)
@@ -63,11 +79,17 @@ def handle_fish_shell(theme):
 def handle_tofi_config(theme):
     # edit .config/tofi/config
     # Replace selection-color = #xxxxxx with selection-color = theme["tofi"]
-    with open(f"{os.getenv('HOME')}/.config/tofi/config", "r") as f:
-        lines = f.readlines()
+    try:
+        with open(f"{os.getenv('HOME')}/.config/tofi/config", "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print("tofi not found, skipping")
+        return
+    
     for i in range(len(lines)):
         if "selection-color" in lines[i]:
             lines[i] = f"selection-color = {theme['tofi']}\n"
+    
     with open(f"{os.getenv('HOME')}/.config/tofi/config", "w") as f:
     #with open("./test/tofi.config", "w") as f:
         f.writelines(lines)
@@ -93,6 +115,8 @@ def handle_vscode_config(theme):
         with open(f"{os.getenv('HOME')}/.config/Code/User/settings.json", "w") as f:
         #with open("./test/vscode.json", "w") as f:
             f.writelines(lines)
+    except FileNotFoundError:
+        print("VSCode not found, skipping")
     return
 
 def handle_wallpaper(theme, img):
